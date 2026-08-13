@@ -1,5 +1,6 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, url_for
 
+# inicializaçãp
 app = Flask(__name__)
 
 receitas = [
@@ -15,6 +16,18 @@ receitas = [
     }
 ]
 
+# rotas teste
+@app.route('/')
+def index():
+    return jsonify({
+        "mensagem": "Bem-vindo à API de Receitas!",
+        "rotas": {
+            "GET /receitas": url_for('get_receitas', _external=True),
+            "POST /receitas": url_for('adicionar_receita', _external=True)
+        }
+    })
+
+# rotas
 @app.route('/receitas', methods=['GET'])
 def get_receitas():
     return jsonify(receitas)
@@ -33,5 +46,6 @@ def adicionar_receita():
 
     return jsonify(nova_receita), 201
 
+# execução
 if __name__ == '__main__':
     app.run(debug=True)

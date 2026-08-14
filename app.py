@@ -1,9 +1,10 @@
-from flask import Flask, jsonify, request, url_for
+from flask import Flask, jsonify, request, url_for, render_template, redirect
 
 # inicializaçãp
 app = Flask(__name__)
 
-receitas = [
+receitas = [ # lista de receitas em JSON
+
     {
         "id": 1,
         "descricao": "Salario",
@@ -16,35 +17,53 @@ receitas = [
     }
 ]
 
-# rotas teste
+# inicio aulas
+
+def pagina(titulo, conteudo):
+    return f"""
+
+    <!DOCTYPE html>
+    <html lang="pt-br">
+        <head>
+            <meta charset="UTF-8">
+            <title>{titulo}</title>
+        </head>
+        <body>
+            <nav>
+                <a href="{url_for('index')}">Inicio</a> |
+                <a href="{url_for('sobre')}">Sobre</a> |
+                <a href="{url_for('contato')}">Contato</a>
+            </nav>
+            <hr>
+            {conteudo}
+        </body>
+    </html>
+"""
+
+@app.route('/home')
+def home():
+    return redirect(url_for('index'))
+
 @app.route('/')
 def index():
-    return jsonify({
-        "mensagem": "Bem-vindo à API de Receitas!",
-        "rotas": {
-            "GET /receitas": url_for('get_receitas', _external=True),
-            "POST /receitas": url_for('adicionar_receita', _external=True)
-        }
-    })
+    return pagina("Primeira Página", "<h1>Primeira Página</h1>")
 
-# rotas
-@app.route('/receitas', methods=['GET'])
-def get_receitas():
-    return jsonify(receitas)
+@app.route('/sobre')
+def sobre():
+    return pagina("Sobre", "<h1>Sobre</h1><p>Esta é a página sobre.</p>")
 
-@app.route('/receitas', methods=['POST'])
-def adicionar_receita():
-    dados = request.get_json()
+@app.route('/contato')
+def contato():
+    return pagina("Contato", "<h1>Contato</h1><p>Esta é a página de contato.</p>")
 
-    nova_receita = {
-        "id": len(receitas) + 1,
-        "descricao": dados["descricao"],
-        "valor": dados["valor"]
-    }
+@app.route('/produto/<int:id>')
+def detalhe_produto(id):
+    return pagina(f"Produto {id}", f"<h1>Produto {id}</h1><p>Detalhes do produto {id}.</p>")
 
-    receitas.append(nova_receita)
-
-    return jsonify(nova_receita), 201
+# fora da aula
+@app.route('/primeiratela')
+def ola_mundo():
+    return render_template('index.html')
 
 # execução
 if __name__ == '__main__':

@@ -6,6 +6,6 @@ cliente_route = Blueprint('cliente', __name__)
 def lista_cliente():
     pass
 
-@cliente_route.route('/')
-def obter_cliente():
+@cliente_route.route('/<int:cliente_id>')
+def obter_cliente(cliente_id):
     pass

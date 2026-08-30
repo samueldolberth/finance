@@ -18,12 +18,16 @@ class Receita(db.Model):
     valor = db.Column(db.Float, nullable=False)
     data = db.Column(db.Date, nullable=False)
 
-# Página inicial
+
 @app.route("/")
 def dashboard():
+    return render_template("dashboard.html")
+
+@app.route("/receitas")
+def receitas():
    receitas = Receita.query.all()
 
-   return render_template("dashboard.html", receitas=receitas)
+   return render_template("receitas.html", receitas=receitas)
 
 
 # Página sobre
@@ -33,7 +37,7 @@ def sobre():
 
 
 # Cadastro de receitas
-@app.route("/receitas", methods=["GET", "POST"])
+@app.route("/receitas/nova", methods=["GET", "POST"])
 def cadastro_receitas():
 
     if request.method == "POST":
@@ -69,7 +73,7 @@ def cadastro_receitas():
         db.session.add(nova_receita)
         db.session.commit()
         flash("Receita cadastrada com sucesso!", "sucesso")
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('receitas'))
     return render_template("nova_receita.html")
 
 def popular_banco():
@@ -105,7 +109,7 @@ def editar_receita(receita_id):
         receita.data = datetime.strptime(request.form.get("data"),"%Y-%m-%d").date()
         db.session.commit()
         flash("Receita atualizada com sucesso!", "sucesso")
-        return redirect(url_for("dashboard"))
+        return redirect(url_for("receitas"))
     return render_template("editar.html", receita=receita)
 
 @app.route("/receita/<int:receita_id>/remover", methods=["POST"])
@@ -114,7 +118,7 @@ def remover_receita(receita_id):
     db.session.delete(receita)
     db.session.commit()
     flash("Receita removida.", "sucesso")
-    return redirect(url_for("dashboard"))
+    return redirect(url_for("receitas"))
 
 # Executa o servidor
 if __name__ == "__main__":

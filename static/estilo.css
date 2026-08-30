@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+}
+
+nav {
+    width: 200px;
+    height: 100vh;
+    background-color: #222;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+nav h2 {
+    color: white;
+    padding: 20px;
+}

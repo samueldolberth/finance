@@ -1,62 +1,18 @@
-
 from flask import Flask, request, render_template, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 # Inicialização
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    "mysql+pymysql://root:@localhost/finance"
+)
+db = SQLAlchemy(app)
 
-# Lista temporária de receitas
-lista_receitas = [
-    {
-        "id": 1,
-        "descricao": "Salário",
-        "valor": 1990,
-        "data": "05/08/2026"
-    },
-    {
-        "id": 2,
-        "descricao": "Vale Refeição",
-        "valor": 200,
-        "data": "08/08/2026"
-    },
-    {
-        "id": 3,
-        "descricao": "Freelance",
-        "valor": 450,
-        "data": "10/08/2026"
-    },
-    {
-        "id": 4,
-        "descricao": "Venda de produto",
-        "valor": 180,
-        "data": "12/08/2026"
-    },
-    {
-        "id": 5,
-        "descricao": "Bônus",
-        "valor": 300,
-        "data": "15/08/2026"
-    },
-    {
-        "id": 6,
-        "descricao": "Hora extra",
-        "valor": 250,
-        "data": "18/08/2026"
-    },
-    {
-        "id": 7,
-        "descricao": "Rendimento",
-        "valor": 120,
-        "data": "20/08/2026"
-    },
-    {
-        "id": 8,
-        "descricao": "Comissão",
-        "valor": 350,
-        "data": "25/08/2026"
-    }
-]
-
-
+class Receita(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    descricao = db.Column(db.String(100), nullable=False)
+    valor = db.Column(db.Float, nullable=False)
+    date = db.Column(db.date, nullable=False)
 
 # Página inicial
 @app.route("/")
@@ -86,8 +42,36 @@ def cadastro_receitas():
 
     return render_template("nova_receita.html")
 
+def popular_banco():
+    if Receita.query.count() == 0:
+        db.session.add(Receita(
+            descricao = "Salário",
+            valor = "1990",
+            data = "05/08/2026",
+        ))
+        db.session.add(Receita(
+            descricao = "Vale Refeição",
+            valor = "200",
+            data = "08/08/2026"
+        ))
+        db.session.add(Receita(
+            descricao = "Freelance"
+            valor = "450"
+            data = "10/08/2026"
+        ))
 
+with app.app_context():
+    db.create_all()
+
+    nova = Receita(titulo="Teste DB")
+    db.session.add(nova)
+    db.session.commit()
+
+    todas = Receita.query.all()
+    for receita in todas:
+        print(receita.id, receita.titulo)
 
 # Executa o servidor
 if __name__ == "__main__":
     app.run(debug=True)
+

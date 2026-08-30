@@ -3,62 +3,64 @@
 <html lang="pt-br">
 
 <head>
+
     <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='estilo.css') }}">
 
-<title>Controle Financeiro</title>
-
+    <title>Controle Financeiro</title>
 
 </head>
 
 <body>
 
+    <header>
 
-<header>
+        <h1>Controle Financeiro</h1>
+
+    </header>
+
+
     <nav>
-        <div>
 
-            <a href="{{ url_for('index') }}">
-                Controle Financeiro
-            </a>
+        <div id="menu">
 
-            <div id="menu">
+            <ul>
 
-                <ul>
+                <li>
+                    <a href="{{ url_for('dashboard') }}">
+                        Início
+                    </a>
+                </li>
 
-                    <li>
-                        <a href="{{ url_for('index') }}">
-                            Início
-                        </a>
-                    </li>
+                <li>
+                    <a href="{{ url_for('cadastro_receitas') }}">
+                        Receitas
+                    </a>
+                </li>
 
-                    <li>
-                        <a href="{{ url_for('cadastro_receitas') }}">
-                            Receitas
-                        </a>
-                    </li>
+                <li>
+                    <a href="{{ url_for('sobre') }}">
+                        Sobre
+                    </a>
+                </li>
 
-                    <li>
-                        <a href="{{ url_for('sobre') }}">
-                            Sobre
-                        </a>
-                    </li>
+            </ul>
 
-                </ul>
-
-            </div>
         </div>
+
     </nav>
-</header>
 
-<main>
 
-    {% block content %}
-    {% endblock %}
+    <main>
 
-</main>
+        {% block content %}
+        {% endblock %}
 
+    </main>
 
 </body>
 

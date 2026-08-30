@@ -60,8 +60,8 @@ lista_receitas = [
 
 # Página inicial
 @app.route("/")
-def index():
-    return render_template("index.html", receitas=lista_receitas)
+def dashboard():
+    return render_template("dashboard.html", receitas=lista_receitas)
 
 
 # Página sobre

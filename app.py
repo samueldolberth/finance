@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime, date
 
 # Inicialização
 app = Flask(__name__)
@@ -12,7 +13,7 @@ class Receita(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     descricao = db.Column(db.String(100), nullable=False)
     valor = db.Column(db.Float, nullable=False)
-    date = db.Column(db.date, nullable=False)
+    date = db.Column(db.Date, nullable=False)
 
 # Página inicial
 @app.route("/")
@@ -32,46 +33,63 @@ def cadastro_receitas():
 
     if request.method == "POST":
         descricao = request.form.get("descricao")
-        valor = float(request.form.get("valor"))
-        data = request.form.get("data")
-        novo_id = len(lista_receitas) + 1
+        valor_texto = request.form.get("valor")
+        data = datetime.strptime(
+            request.form.get("data"),
+            "%Y-%m-%d"
+        )
 
-        lista_receitas.append({"id": novo_id, "descricao": descricao, "valor": valor,"data": data})
+        erros = []
+        if not descricao:
+            erros.append("A descrição é obrigatoria.")
 
+        valor = None
+        try:
+            valor = float(valor_texto)
+            if valor <= 0:
+                erros.append("O valor tem que ser maior que zero.")
+        except ValueError:
+            erros.append("Valor inválido.")
+
+        if erros:
+            for erro in erros:
+                flash(erro, "Erro")
+            return render_template("nova_receita.html")
+
+        nova_receita = Receita(
+            descricao = descricao,
+            valor = valor,
+            data = data
+        )
+        db.session.add(nova_receita)
+        db.session.commit()
+        flash("Receita cadastrada com sucesso!", "sucesso")
         return redirect(url_for("dashboard"))
-
     return render_template("nova_receita.html")
 
 def popular_banco():
     if Receita.query.count() == 0:
         db.session.add(Receita(
             descricao = "Salário",
-            valor = "1990",
-            data = "05/08/2026",
+            valor = 1990,
+            data = date(2026, 8, 5)
         ))
         db.session.add(Receita(
             descricao = "Vale Refeição",
-            valor = "200",
-            data = "08/08/2026"
+            valor = 200,
+            data = date=(2026, 8, 8)
         ))
         db.session.add(Receita(
-            descricao = "Freelance"
-            valor = "450"
-            data = "10/08/2026"
+            descricao = "Freelance",
+            valor = 450,
+            data = date(2026, 8, 10)
         ))
 
-with app.app_context():
-    db.create_all()
-
-    nova = Receita(titulo="Teste DB")
-    db.session.add(nova)
-    db.session.commit()
-
-    todas = Receita.query.all()
-    for receita in todas:
-        print(receita.id, receita.titulo)
 
 # Executa o servidor
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+        popular_banco()
     app.run(debug=True)
 

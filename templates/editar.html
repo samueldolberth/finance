@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Editar receita</h2>
+<form method="POST">
+    <label for="descricao">Descrição:</label>
+    <input type="text" id="descricao" name="descricao" value="{{ receita.descricao }}">
+
+    <label for="valor">Valor:</label>
+    <input type="number" id="valor" name="valor" step="0.01" value="{{ receita.valor }}">
+
+    <label for="data">Data:</label>
+    <input type="date" id="data" name="data" value="{{ receita.data.strftime('%Y-%m-%d') }}">
+
+    <button type="submit">Salvar</button>
+</form>
+{% endblock %}

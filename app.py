@@ -4,6 +4,9 @@ from datetime import datetime, date
 
 # Inicialização
 app = Flask(__name__)
+
+app.config["SECRET_KEY"] = "chave-teste"
+
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     "mysql+pymysql://root:@localhost/finance"
 )
@@ -13,12 +16,14 @@ class Receita(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     descricao = db.Column(db.String(100), nullable=False)
     valor = db.Column(db.Float, nullable=False)
-    date = db.Column(db.Date, nullable=False)
+    data = db.Column(db.Date, nullable=False)
 
 # Página inicial
 @app.route("/")
 def dashboard():
-    return render_template("dashboard.html", receitas=lista_receitas)
+   receitas = Receita.query.all()
+
+   return render_template("dashboard.html", receitas=receitas)
 
 
 # Página sobre
@@ -37,7 +42,7 @@ def cadastro_receitas():
         data = datetime.strptime(
             request.form.get("data"),
             "%Y-%m-%d"
-        )
+        ).date()
 
         erros = []
         if not descricao:
@@ -64,7 +69,7 @@ def cadastro_receitas():
         db.session.add(nova_receita)
         db.session.commit()
         flash("Receita cadastrada com sucesso!", "sucesso")
-        return redirect(url_for("dashboard"))
+        return redirect(url_for('dashboard'))
     return render_template("nova_receita.html")
 
 def popular_banco():
@@ -77,14 +82,39 @@ def popular_banco():
         db.session.add(Receita(
             descricao = "Vale Refeição",
             valor = 200,
-            data = date=(2026, 8, 8)
+            data = date(2026, 8, 8)
         ))
         db.session.add(Receita(
             descricao = "Freelance",
             valor = 450,
             data = date(2026, 8, 10)
         ))
+        db.session.commit()
 
+@app.route("/receita/<int:receita_id>")
+def detalhe_receita(receita_id):
+    receita = db.get_or_404(Receita, receita_id)
+    return render_template("detalhe.html", receita=receita)
+
+@app.route("/receita/<int:receita_id>/editar", methods=["GET", "POST"])
+def editar_receita(receita_id):
+    receita = db.get_or_404(Receita, receita_id)
+    if request.method == "POST":
+        receita.descricao = request.form.get("descricao", "").strip()
+        receita.valor = float(request.form.get("valor", 0))
+        receita.data = datetime.strptime(request.form.get("data"),"%Y-%m-%d").date()
+        db.session.commit()
+        flash("Receita atualizada com sucesso!", "sucesso")
+        return redirect(url_for("dashboard"))
+    return render_template("editar.html", receita=receita)
+
+@app.route("/receita/<int:receita_id>/remover", methods=["POST"])
+def remover_receita(receita_id):
+    receita = db.get_or_404(Receita, receita_id)
+    db.session.delete(receita)
+    db.session.commit()
+    flash("Receita removida.", "sucesso")
+    return redirect(url_for("dashboard"))
 
 # Executa o servidor
 if __name__ == "__main__":

@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+ <h2>{{ receita.descricao }}</h2>
+ <p>Valor: R$ {{ "%.2f"|format(receita.valor) }}</p>
+ <p>{{ receita.data }}</p>
+{% endblock %}

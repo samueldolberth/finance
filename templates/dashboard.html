@@ -6,9 +6,14 @@
   {% for receita in receitas %}
   <li>
     #{{ receita.id }} - {{ receita.data }} - {{ receita.descricao }} - R$ {{ "%.2f"|format(receita.valor) }}
-    {% if receita.valor > 500 %}
-    <strong>(Acima de R$ 500,00)</strong>
-    {% endif %}
+    <a href="{{ url_for('detalhe_receita', receita_id=receita.id) }}">Detalhes</a>
+    <a href="{{ url_for('editar_receita', receita_id=receita.id) }}">Editar</a>
+    <form 
+      method="POST" 
+      action="{{ url_for('remover_receita', receita_id=receita.id) }}"
+      style="display: inline;">
+      <button type="submit">Excluir</button>
+    </form>
   </li>
   {% endfor %}
 </ul>

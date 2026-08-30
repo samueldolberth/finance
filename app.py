@@ -1,5 +1,5 @@
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 
 # Inicialização
 app = Flask(__name__)
@@ -76,12 +76,16 @@ def cadastro_receitas():
 
     if request.method == "POST":
         descricao = request.form.get("descricao")
-        valor = request.form.get("valor")
+        valor = float(request.form.get("valor"))
         data = request.form.get("data")
+        novo_id = len(lista_receitas) + 1
 
-        return f"Receita recebida: {descricao} - R$ {valor} - {data}"
+        lista_receitas.append({"id": novo_id, "descricao": descricao, "valor": valor,"data": data})
 
-    return render_template("receitas.html")
+        return redirect(url_for("dashboard"))
+
+    return render_template("nova_receita.html")
+
 
 
 # Executa o servidor

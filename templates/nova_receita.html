@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Cadastrar nova receita</h2>
+    <form method="POST">
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" required>
+
+        <label for="valor">Valor:</label>
+        <input type="number" id="valor" name="valor" required>
+
+        <label for="data">Data:</label>
+        <input type="text" id="data" name="data" required>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+{% endblock %}

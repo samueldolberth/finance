@@ -5,7 +5,7 @@
 <ul>
   {% for receita in receitas %}
   <li>
-    {{ receita.data }} - {{ receita.descricao }} - {{ "%.2f"|format(receita.valor) }}
+    #{{ receita.id }} - {{ receita.data }} - {{ receita.descricao }} - R$ {{ "%.2f"|format(receita.valor) }}
     {% if receita.valor > 500 %}
     <strong>(Acima de R$ 500,00)</strong>
     {% endif %}

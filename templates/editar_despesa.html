@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<div class="pagina-cabecalho">
+    <div>
+        <h1>Editar despesa</h1>
+        <p>Altere os dados da despesa.</p>
+    </div>
+</div>
+
+{% with mensagens = get_flashed_messages(with_categories=true) %}
+    {% if mensagens %}
+        {% for categoria, mensagem in mensagens %}
+            <div class="alert alert-{{ categoria }}">
+                {{ mensagem }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="card">
+
+    <form method="POST">
+
+        <div class="form-group">
+            <label for="descricao">
+                Descrição
+            </label>
+
+            <input
+                type="text"
+                id="descricao"
+                name="descricao"
+                value="{{ despesa.descricao }}"
+                required
+            >
+        </div>
+
+
+        <div class="form-group">
+            <label for="categoria">
+                Categoria
+            </label>
+
+            <select
+                id="categoria"
+                name="categoria"
+                required
+            >
+                <option value="">Selecione uma categoria</option>
+
+                <option value="Moradia"
+                    {% if despesa.categoria == "Moradia" %}selected{% endif %}>
+                    Moradia
+                </option>
+
+                <option value="Alimentação"
+                    {% if despesa.categoria == "Alimentação" %}selected{% endif %}>
+                    Alimentação
+                </option>
+
+                <option value="Transporte"
+                    {% if despesa.categoria == "Transporte" %}selected{% endif %}>
+                    Transporte
+                </option>
+
+                <option value="Saúde"
+                    {% if despesa.categoria == "Saúde" %}selected{% endif %}>
+                    Saúde
+                </option>
+
+                <option value="Educação"
+                    {% if despesa.categoria == "Educação" %}selected{% endif %}>
+                    Educação
+                </option>
+
+                <option value="Lazer"
+                    {% if despesa.categoria == "Lazer" %}selected{% endif %}>
+                    Lazer
+                </option>
+
+                <option value="Compras"
+                    {% if despesa.categoria == "Compras" %}selected{% endif %}>
+                    Compras
+                </option>
+
+                <option value="Contas"
+                    {% if despesa.categoria == "Contas" %}selected{% endif %}>
+                    Contas
+                </option>
+
+                <option value="Outros"
+                    {% if despesa.categoria == "Outros" %}selected{% endif %}>
+                    Outros
+                </option>
+
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label for="valor">
+                Valor
+            </label>
+
+            <input
+                type="number"
+                id="valor"
+                name="valor"
+                value="{{ despesa.valor }}"
+                step="0.01"
+                min="0.01"
+                required
+            >
+        </div>
+
+
+        <div class="form-group">
+            <label for="data">
+                Data
+            </label>
+
+            <input
+                type="date"
+                id="data"
+                name="data"
+                value="{{ despesa.data.strftime('%Y-%m-%d') }}"
+                required
+            >
+        </div>
+
+
+        <div class="form-acoes">
+
+            <a
+                href="{{ url_for('despesas') }}"
+                class="btn btn-secondary"
+            >
+                Cancelar
+            </a>
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Salvar alterações
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div>
+
+{% endblock %}

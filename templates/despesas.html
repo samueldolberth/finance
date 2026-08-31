@@ -1,19 +1,88 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Despesas</h2>
 
-<a href="{{ url_for('cadastro_despesas') }}">
-    <button type="button">Adicionar Despesa</button>
-</a>
-{% if despesas %}
-<ul>
-    {% for despesa in despesas %}
-    <li>
-         #{{ despesa.id }} -
-        {{ despesa.data }} -
-        {{ despesa.descricao }} -
-        R$ {{ "%.2f"|format(despesa.valor) }}
-        <a href="">Detalhes</a>
-        <a href="">Editar</a>
-    </li>
-</ul>
+<div class="container">
+
+    <div class="pagina-cabecalho">
+        <div>
+            <h1>Despesas</h1>
+            <p>Controle suas despesas cadastradas.</p>
+        </div>
+
+        <a href="{{ url_for('cadastro_despesas') }}" class="btn btn-primary">
+            + Nova despesa
+        </a>
+    </div>
+
+    {% with mensagens = get_flashed_messages(with_categories=true) %}
+        {% if mensagens %}
+            {% for categoria, mensagem in mensagens %}
+                <div class="alert alert-{{ categoria }}">
+                    {{ mensagem }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="card">
+
+        {% if despesas %}
+
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for despesa in despesas %}
+                <tr>
+                    <td>{{ despesa.descricao }}</td>
+                    <td>{{ despesa.categoria }}</td>
+                    <td>R$ {{ "%.2f"|format(despesa.valor) }}</td>
+                    <td>{{ despesa.data.strftime("%d/%m/%Y") }}</td>
+                    <td class="acoes">
+                        <a href="{{ url_for('detalhe_despesa', despesa_id=despesa.id) }}" class="btn btn-info">
+                            Ver
+                        </a>
+                        <a href="{{ url_for('editar_despesa', despesa_id=despesa.id) }}" class="btn btn-warning">
+                            Editar
+                        </a>
+
+                        <form
+                            action="{{ url_for('remover_despesa', despesa_id=despesa.id) }}"
+                            method="POST"
+                            style="display: inline;">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Deseja realmente remover esta despesa?')">
+                                Excluir
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% else %}
+
+            <div class="estado-vazio">
+                <h2>Nenhuma despesa cadastrada</h2>
+                <p>Comece cadastrando sua primeira despesa.</p>
+
+                <a href="{{ url_for('cadastro_despesas') }}" class="btn btn-primary">
+                    Cadastrar despesa
+                </a>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

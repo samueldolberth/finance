@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<div class="pagina-cabecalho">
+    <div>
+        <h1>Detalhes da despesa</h1>
+        <p>Visualize as informações da despesa.</p>
+    </div>
+</div>
+
+<div class="card">
+
+    <div class="detalhe-item">
+        <strong>Descrição</strong>
+        <span>{{ despesa.descricao }}</span>
+    </div>
+
+    <div class="detalhe-item">
+        <strong>Categoria</strong>
+        <span>{{ despesa.categoria }}</span>
+    </div>
+
+    <div class="detalhe-item">
+        <strong>Valor</strong>
+        <span>R$ {{ "%.2f"|format(despesa.valor) }}</span>
+    </div>
+
+    <div class="detalhe-item">
+        <strong>Data</strong>
+        <span>{{ despesa.data.strftime("%d/%m/%Y") }}</span>
+    </div>
+
+    <div class="form-acoes">
+
+        <a
+            href="{{ url_for('despesas') }}"
+            class="btn btn-secondary"
+        >
+            Voltar
+        </a>
+
+        <a
+            href="{{ url_for('editar_despesa', despesa_id=despesa.id) }}"
+            class="btn btn-warning"
+        >
+            Editar
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}

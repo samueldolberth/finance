@@ -18,15 +18,29 @@ class Receita(db.Model):
     valor = db.Column(db.Float, nullable=False)
     data = db.Column(db.Date, nullable=False)
 
+class Despesa(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    descricao = db.Column(db.String(100), nullable=False)
+    valor = db.Column(db.Float, nullable=False)
+    data = db.Column(db.Date, nullable=False)
+    categoria = db.Column(db.String(50))
 
 @app.route("/")
 def dashboard():
     return render_template("dashboard.html")
 
+@app.route("/despesas")
+def despesas():
+    despesas = Despesa.query.all()
+    return render_template("despesas.html", despesas=despesas)
+
+
+def cadastro_despesas():
+    pass
+
 @app.route("/receitas")
 def receitas():
    receitas = Receita.query.all()
-
    return render_template("receitas.html", receitas=receitas)
 
 

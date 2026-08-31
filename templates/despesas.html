@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Despesas</h2>
+
+<a href="{{ url_for('cadastro_despesas') }}">
+    <button type="button">Adicionar Despesa</button>
+</a>
+{% if despesas %}
+<ul>
+    {% for despesa in despesas %}
+    <li>
+         #{{ despesa.id }} -
+        {{ despesa.data }} -
+        {{ despesa.descricao }} -
+        R$ {{ "%.2f"|format(despesa.valor) }}
+        <a href="">Detalhes</a>
+        <a href="">Editar</a>
+    </li>
+</ul>

@@ -29,6 +29,80 @@ class Despesa(db.Model):
     data = db.Column(db.Date, nullable=False)
     categoria = db.Column(db.String(50))
 
+#=======================
+#    FUNÇÃO POPULAR
+#=======================
+def popular_banco():
+    # Receitas
+    if Receita.query.count() == 0:
+
+        db.session.add(Receita(
+            descricao="Salário",
+            valor=1990,
+            data=date(2026, 8, 5)
+        ))
+
+        db.session.add(Receita(
+            descricao="Vale Refeição",
+            valor=200,
+            data=date(2026, 8, 8)
+        ))
+
+        db.session.add(Receita(
+            descricao="Freelance",
+            valor=450,
+            data=date(2026, 8, 10)
+        ))
+
+        db.session.commit()
+        
+    # Despesas
+    if Despesa.query.count() == 0:
+
+        db.session.add(Despesa(
+            descricao="Aluguel",
+            valor=800,
+            data=date(2026, 8, 5),
+            categoria="Moradia"
+        ))
+
+        db.session.add(Despesa(
+            descricao="Supermercado",
+            valor=350,
+            data=date(2026, 8, 7),
+            categoria="Alimentação"
+        ))
+
+        db.session.add(Despesa(
+            descricao="Conta de luz",
+            valor=120,
+            data=date(2026, 8, 10),
+            categoria="Contas"
+        ))
+
+        db.session.add(Despesa(
+            descricao="Combustível",
+            valor=200,
+            data=date(2026, 8, 12),
+            categoria="Transporte"
+        ))
+
+        db.session.add(Despesa(
+            descricao="Academia",
+            valor=80,
+            data=date(2026, 8, 15),
+            categoria="Saúde"
+        ))
+
+        db.session.add(Despesa(
+            descricao="Cinema",
+            valor=60,
+            data=date(2026, 8, 20),
+            categoria="Lazer"
+        ))
+
+        db.session.commit()
+
 #=========================
 #        ROTAS
 #=========================
@@ -258,78 +332,6 @@ def cadastro_receitas():
         flash("Receita cadastrada com sucesso!", "sucesso")
         return redirect(url_for('receitas'))
     return render_template("nova_receita.html")
-
-def popular_banco():
-    # Receitas
-    if Receita.query.count() == 0:
-
-        db.session.add(Receita(
-            descricao="Salário",
-            valor=1990,
-            data=date(2026, 8, 5)
-        ))
-
-        db.session.add(Receita(
-            descricao="Vale Refeição",
-            valor=200,
-            data=date(2026, 8, 8)
-        ))
-
-        db.session.add(Receita(
-            descricao="Freelance",
-            valor=450,
-            data=date(2026, 8, 10)
-        ))
-
-        db.session.commit()
-
-
-    # Despesas
-    if Despesa.query.count() == 0:
-
-        db.session.add(Despesa(
-            descricao="Aluguel",
-            valor=800,
-            data=date(2026, 8, 5),
-            categoria="Moradia"
-        ))
-
-        db.session.add(Despesa(
-            descricao="Supermercado",
-            valor=350,
-            data=date(2026, 8, 7),
-            categoria="Alimentação"
-        ))
-
-        db.session.add(Despesa(
-            descricao="Conta de luz",
-            valor=120,
-            data=date(2026, 8, 10),
-            categoria="Contas"
-        ))
-
-        db.session.add(Despesa(
-            descricao="Combustível",
-            valor=200,
-            data=date(2026, 8, 12),
-            categoria="Transporte"
-        ))
-
-        db.session.add(Despesa(
-            descricao="Academia",
-            valor=80,
-            data=date(2026, 8, 15),
-            categoria="Saúde"
-        ))
-
-        db.session.add(Despesa(
-            descricao="Cinema",
-            valor=60,
-            data=date(2026, 8, 20),
-            categoria="Lazer"
-        ))
-
-        db.session.commit()
 
 @app.route("/receita/<int:receita_id>")
 def detalhe_receita(receita_id):

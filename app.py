@@ -12,6 +12,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
 )
 db = SQLAlchemy(app)
 
+#=========================
+#       CLASSES
+#=========================
+
 class Receita(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     descricao = db.Column(db.String(100), nullable=False)
@@ -24,6 +28,15 @@ class Despesa(db.Model):
     valor = db.Column(db.Float, nullable=False)
     data = db.Column(db.Date, nullable=False)
     categoria = db.Column(db.String(50))
+
+#=========================
+#        ROTAS
+#=========================
+
+# Página sobre
+@app.route("/sobre")
+def sobre():
+    return render_template("sobre.html")
 
 @app.route("/")
 def dashboard():
@@ -78,6 +91,9 @@ def dashboard():
         valores_categorias=valores_categorias
     )
 
+#=====================
+#    ROTAS DESPESAS
+#====================
 
 @app.route("/despesas")
 def despesas():
@@ -154,11 +170,7 @@ def remover_despesa(despesa_id):
     flash("Despesa removida.", "sucesso")
 
     return redirect(url_for("despesas"))
-
-@app.route("/receitas")
-def receitas():
-   receitas = Receita.query.all()
-   return render_template("receitas.html", receitas=receitas)
+    
 
 @app.route("/despesa/<int:despesa_id>/editar", methods=["GET", "POST"])
 def editar_despesa(despesa_id):
@@ -198,11 +210,14 @@ def editar_despesa(despesa_id):
         despesa=despesa
     )
 
-# Página sobre
-@app.route("/sobre")
-def sobre():
-    return render_template("sobre.html")
+#==========================
+#    ROTAS RECEITAS
+#==========================
 
+@app.route("/receitas")
+def receitas():
+   receitas = Receita.query.all()
+   return render_template("receitas.html", receitas=receitas)
 
 # Cadastro de receitas
 @app.route("/receitas/nova", methods=["GET", "POST"])
@@ -245,7 +260,6 @@ def cadastro_receitas():
     return render_template("nova_receita.html")
 
 def popular_banco():
-
     # Receitas
     if Receita.query.count() == 0:
 

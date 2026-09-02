@@ -1,2 +1,0 @@
-Aiven.
-Render

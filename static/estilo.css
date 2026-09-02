@@ -1,6 +1,17 @@
+/* =========================
+   CONFIGURAÇÕES GERAIS
+========================= */
+
 body {
     margin: 0;
+    background-color: #f5f6f8;
+    font-family: Arial, sans-serif;
 }
+
+
+/* =========================
+   HEADER
+========================= */
 
 header {
     width: 100%;
@@ -16,6 +27,11 @@ header {
 
     box-sizing: border-box;
 }
+
+
+/* =========================
+   MENU LATERAL
+========================= */
 
 nav {
     width: 200px;
@@ -53,28 +69,68 @@ nav {
     background-color: #444;
 }
 
+
+/* =========================
+   CONTEÚDO PRINCIPAL
+========================= */
+
 main {
     margin-left: 200px;
-
     padding: 30px;
 }
 
+
+/* =========================
+   CABEÇALHO DA PÁGINA
+========================= */
+
+.pagina-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.pagina-cabecalho h1 {
+    margin: 0 0 5px;
+}
+
+.pagina-cabecalho p {
+    margin: 0;
+    color: #666;
+}
+
+
+/* =========================
+   CARDS PRINCIPAIS
+========================= */
+
 .dashboard-cards {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 20px;
+
     margin-bottom: 30px;
 }
 
 .dashboard-card {
     padding: 25px;
+
     border-radius: 10px;
+
     background-color: white;
+
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    box-sizing: border-box;
 }
 
 .dashboard-card h2 {
     margin: 15px 0 5px;
+
     font-size: 28px;
 }
 
@@ -84,8 +140,12 @@ main {
 
 .dashboard-card a {
     text-decoration: none;
+
     font-weight: bold;
 }
+
+
+/* CORES DOS CARDS */
 
 .dashboard-card.receita {
     border-left: 5px solid #28a745;
@@ -99,34 +159,131 @@ main {
     border-left: 5px solid #007bff;
 }
 
+
+/* =========================
+   CARDS / MOVIMENTAÇÕES
+========================= */
+
 .dashboard-movimentacoes {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 20px;
+
+    margin-bottom: 30px;
 }
 
 .card {
     background-color: white;
+
     padding: 20px;
+
     border-radius: 10px;
+
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    box-sizing: border-box;
 }
+
+
+/* =========================
+   CABEÇALHO DOS CARDS
+========================= */
 
 .card-header {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     margin-bottom: 15px;
 }
 
 .card-header h2 {
     margin: 0;
+
+    font-size: 20px;
 }
 
 .card-header a {
     text-decoration: none;
+
     font-weight: bold;
 }
+
+
+/* =========================
+   TABELAS
+========================= */
+
+.tabela {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.tabela th,
+.tabela td {
+    padding: 12px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #eee;
+}
+
+.tabela th {
+    font-weight: bold;
+
+    color: #555;
+}
+
+.tabela tbody tr:hover {
+    background-color: #f8f8f8;
+}
+
+
+/* =========================
+   GRÁFICOS
+========================= */
+
+.graficos {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+
+    margin-bottom: 30px;
+}
+
+.graficos .card {
+    min-height: 350px;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.graficos .card h2 {
+    margin-top: 0;
+
+    margin-bottom: 20px;
+
+    font-size: 20px;
+}
+
+.graficos canvas {
+    width: 100% !important;
+
+    max-height: 300px;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
 
 @media (max-width: 900px) {
 
@@ -138,27 +295,167 @@ main {
         grid-template-columns: 1fr;
     }
 
-}
-
-.graficos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.graficos .card {
-    min-height: 350px;
-}
-
-.graficos canvas {
-    max-height: 300px;
-}
-
-@media (max-width: 900px) {
-
     .graficos {
         grid-template-columns: 1fr;
     }
 
+}
+
+@media (max-width: 600px) {
+
+    nav {
+        width: 160px;
+    }
+
+    main {
+        margin-left: 160px;
+
+        padding: 20px;
+    }
+
+    .tabela {
+        font-size: 14px;
+    }
+
+    .tabela th,
+    .tabela td {
+        padding: 8px;
+    }
+
+}
+
+/* =========================
+   CONFIGURAÇÕES GERAIS
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    background-color: #f5f6f8;
+
+    font-family: Arial, sans-serif;
+}
+
+
+/* =========================
+   CABEÇALHO FIXO
+========================= */
+
+.topo {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 70px;
+
+    background-color: #444;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 20px;
+
+    z-index: 1000;
+}
+
+.topo h1 {
+    margin: 0;
+
+    font-size: 24px;
+}
+
+
+/* =========================
+   NAVBAR LATERAL FIXA
+========================= */
+
+.barra-lateral {
+    position: fixed;
+
+    top: 70px;
+    left: 0;
+
+    width: 200px;
+
+    height: calc(100vh - 70px);
+
+    background-color: #222;
+
+    overflow-y: auto;
+
+    z-index: 999;
+}
+
+
+/* MENU */
+
+#menu ul {
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+}
+
+#menu li {
+    width: 100%;
+}
+
+#menu a {
+    display: block;
+
+    padding: 15px 20px;
+
+    color: white;
+
+    text-decoration: none;
+
+    transition: background-color 0.2s;
+}
+
+#menu a:hover {
+    background-color: #444;
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.conteudo {
+    margin-left: 200px;
+
+    padding: 100px 30px 30px;
+
+    min-height: 100vh;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 600px) {
+
+    .barra-lateral {
+        width: 160px;
+    }
+
+    .conteudo {
+        margin-left: 160px;
+
+        padding: 100px 20px 20px;
+    }
+
+    .topo h1 {
+        font-size: 20px;
+    }
 }

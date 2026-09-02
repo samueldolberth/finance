@@ -1,29 +1,96 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Receitas</h2>
-<a href="{{ url_for('cadastro_receitas') }}">
-    <button type="button">Adicionar Receita</button>
-</a>
-{% if receitas %}
-<ul>
-  {% for receita in receitas %}
-  <li>
-    #{{ receita.id }} -
-    {{ receita.data }} -
-    {{ receita.descricao }} -
-    R$ {{ "%.2f"|format(receita.valor) }}
-    <a href="{{ url_for('detalhe_receita', receita_id=receita.id) }}">Detalhes</a>
-    <a href="{{ url_for('editar_receita', receita_id=receita.id) }}">Editar</a>
-    <form
-      method="POST"
-      action="{{ url_for('remover_receita', receita_id=receita.id) }}"
-      style="display: inline;">
-        <button type="submit">Excluir</button>
-    </form>
-  </li>
+
+<div class="container">
+
+  <div class="pagina-cabecalho">
+    <div>
+      <h1>Receitas</h1>
+      <p>Controle suas receitas cadastradas.</p>
+    </div>
+
+    <a href="{{ url_for('cadastro_receitas') }}" class="btn btn-primary">
+      + Nova receita
+    </a>
+  </div>
+
+  {% with mensagens = get_flashed_messages(with_categories=true) %}
+  {% if mensagens %}
+  {% for categoria, mensagem in mensagens %}
+  <div class="alert alert-{{ categoria }}">
+    {{ mensagem }}
+  </div>
   {% endfor %}
-</ul>
-{% else %}
-  <p>Nenhuma receita cadastrada ainda.</p>
-{% endif %}
+  {% endif %}
+  {% endwith %}
+
+  <div class="card">
+
+    {% if receitas %}
+
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Valor</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for receita in receitas %}
+        <tr>
+          <td>{{ receita.descricao }}</td>
+
+          <td>
+            R$ {{ "%.2f"|format(receita.valor) }}
+          </td>
+
+          <td>
+            {{ receita.data }}
+          </td>
+
+          <td class="acoes">
+
+            <a href="{{ url_for('detalhe_receita', receita_id=receita.id) }}" class="btn btn-info">
+              Ver
+            </a>
+
+            <a href="{{ url_for('editar_receita', receita_id=receita.id) }}" class="btn btn-warning">
+              Editar
+            </a>
+
+            <form action="{{ url_for('remover_receita', receita_id=receita.id) }}" method="POST"
+              style="display: inline;">
+
+              <button type="submit" class="btn btn-danger"
+                onclick="return confirm('Deseja realmente remover esta receita?')">
+                Excluir
+              </button>
+
+            </form>
+
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% else %}
+
+    <div class="estado-vazio">
+      <h2>Nenhuma receita cadastrada</h2>
+      <p>Comece cadastrando sua primeira receita.</p>
+
+      <a href="{{ url_for('cadastro_receitas') }}" class="btn btn-primary">
+        Cadastrar receita
+      </a>
+
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+
 {% endblock %}

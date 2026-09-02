@@ -4,105 +4,131 @@
 
 <div class="container">
 
-<div class="pagina-cabecalho">
-    <div>
-        <h1>Dashboard</h1>
-        <p>Resumo da sua situação financeira.</p>
-    </div>
-</div>
+    <!-- =========================
+         CABEÇALHO
+    ========================== -->
 
-
-<!-- CARDS PRINCIPAIS -->
-
-<div class="dashboard-cards">
-
-    <div class="dashboard-card receita">
-        <div class="card-titulo">
-            <span>Receitas</span>
+    <div class="pagina-cabecalho">
+        <div>
+            <h1>Dashboard</h1>
+            <p>Resumo da sua situação financeira.</p>
         </div>
-
-        <h2>
-            R$ {{ "%.2f"|format(total_receitas) }}
-        </h2>
-
-        <p>
-            {{ quantidade_receitas }} movimentações
-        </p>
-
-        <a href="{{ url_for('receitas') }}">
-            Ver receitas →
-        </a>
     </div>
 
 
-    <div class="dashboard-card despesa">
-        <div class="card-titulo">
-            <span>Despesas</span>
-        </div>
+    <!-- =========================
+         CARDS PRINCIPAIS
+    ========================== -->
 
-        <h2>
-            R$ {{ "%.2f"|format(total_despesas) }}
-        </h2>
+    <div class="dashboard-cards">
 
-        <p>
-            {{ quantidade_despesas }} movimentações
-        </p>
+        <!-- RECEITAS -->
+        <div class="dashboard-card receita">
 
-        <a href="{{ url_for('despesas') }}">
-            Ver despesas →
-        </a>
-    </div>
+            <div class="card-titulo">
+                <span>Receitas</span>
+            </div>
 
+            <h2>
+                R$ {{ "%.2f"|format(total_receitas) }}
+            </h2>
 
-    <div class="dashboard-card saldo">
-        <div class="card-titulo">
-            <span>Saldo</span>
-        </div>
-
-        <h2>
-            R$ {{ "%.2f"|format(saldo) }}
-        </h2>
-
-        <p>
-            Receitas - Despesas
-        </p>
-    </div>
-
-</div>
-
-
-<!-- MOVIMENTAÇÕES -->
-
-<div class="dashboard-movimentacoes">
-
-    <div class="card">
-
-        <div class="card-header">
-            <h2>Últimas receitas</h2>
+            <p>
+                {{ quantidade_receitas }} movimentações
+            </p>
 
             <a href="{{ url_for('receitas') }}">
-                Ver todas
+                Ver receitas →
             </a>
+
         </div>
 
 
-        {% if ultimas_receitas %}
+        <!-- DESPESAS -->
+        <div class="dashboard-card despesa">
+
+            <div class="card-titulo">
+                <span>Despesas</span>
+            </div>
+
+            <h2>
+                R$ {{ "%.2f"|format(total_despesas) }}
+            </h2>
+
+            <p>
+                {{ quantidade_despesas }} movimentações
+            </p>
+
+            <a href="{{ url_for('despesas') }}">
+                Ver despesas →
+            </a>
+
+        </div>
+
+
+        <!-- SALDO -->
+        <div class="dashboard-card saldo">
+
+            <div class="card-titulo">
+                <span>Saldo</span>
+            </div>
+
+            <h2>
+                R$ {{ "%.2f"|format(saldo) }}
+            </h2>
+
+            <p>
+                Receitas - Despesas
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         ÚLTIMAS MOVIMENTAÇÕES
+    ========================== -->
+
+    <div class="dashboard-movimentacoes">
+
+
+        <!-- ÚLTIMAS RECEITAS -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2>Últimas receitas</h2>
+
+                <a href="{{ url_for('receitas') }}">
+                    Ver todas
+                </a>
+
+            </div>
+
+
+            {% if ultimas_receitas %}
 
             <table class="tabela">
 
                 <thead>
+
                     <tr>
                         <th>Descrição</th>
                         <th>Valor</th>
                         <th>Data</th>
                     </tr>
+
                 </thead>
+
 
                 <tbody>
 
                     {% for receita in ultimas_receitas %}
 
                     <tr>
+
                         <td>
                             {{ receita.descricao }}
                         </td>
@@ -114,6 +140,7 @@
                         <td>
                             {{ receita.data.strftime("%d/%m/%Y") }}
                         </td>
+
                     </tr>
 
                     {% endfor %}
@@ -122,59 +149,54 @@
 
             </table>
 
-        {% else %}
 
-            <p>Nenhuma receita cadastrada.</p>
+            {% else %}
 
-        {% endif %}
+                <p>Nenhuma receita cadastrada.</p>
 
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-header">
-            <h2>Últimas despesas</h2>
-
-            <a href="{{ url_for('despesas') }}">
-                Ver todas
-            </a>
-        </div>
-
-        <div class="graficos">
-
-            <div class="card">
-                <h2>Receitas x Despesas</h2>
-
-                <canvas id="graficoFinanceiro"></canvas>
-            </div>
-
-            <div class="card">
-                <h2>Despesas por categoria</h2>
-
-                <canvas id="graficoCategorias"></canvas>
-            </div>
+            {% endif %}
 
         </div>
 
-        {% if ultimas_despesas %}
+
+
+        <!-- ÚLTIMAS DESPESAS -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2>Últimas despesas</h2>
+
+                <a href="{{ url_for('despesas') }}">
+                    Ver todas
+                </a>
+
+            </div>
+
+
+            {% if ultimas_despesas %}
 
             <table class="tabela">
 
                 <thead>
+
                     <tr>
                         <th>Descrição</th>
                         <th>Categoria</th>
                         <th>Valor</th>
                         <th>Data</th>
                     </tr>
+
                 </thead>
+
 
                 <tbody>
 
                     {% for despesa in ultimas_despesas %}
 
                     <tr>
+
                         <td>
                             {{ despesa.descricao }}
                         </td>
@@ -190,6 +212,7 @@
                         <td>
                             {{ despesa.data.strftime("%d/%m/%Y") }}
                         </td>
+
                     </tr>
 
                     {% endfor %}
@@ -198,79 +221,148 @@
 
             </table>
 
-        {% else %}
 
-            <p>Nenhuma despesa cadastrada.</p>
+            {% else %}
 
-        {% endif %}
+                <p>Nenhuma despesa cadastrada.</p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         GRÁFICOS
+    ========================== -->
+
+    <div class="graficos">
+
+
+        <!-- GRÁFICO FINANCEIRO -->
+
+        <div class="card">
+
+            <h2>Receitas x Despesas</h2>
+
+            <canvas id="graficoFinanceiro"></canvas>
+
+        </div>
+
+
+        <!-- GRÁFICO DE CATEGORIAS -->
+
+        <div class="card">
+
+            <h2>Despesas por categoria</h2>
+
+            <canvas id="graficoCategorias"></canvas>
+
+        </div>
 
     </div>
 
 </div>
 
-</div>
+
+
+<!-- =========================
+     CHART.JS
+========================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
 <script>
 
-    const graficoFinanceiro = document.getElementById(
-        "graficoFinanceiro"
-    );
+    /* =========================
+       GRÁFICO RECEITAS X DESPESAS
+    ========================== */
+
+    const graficoFinanceiro =
+        document.getElementById("graficoFinanceiro");
+
 
     new Chart(graficoFinanceiro, {
+
         type: "bar",
 
         data: {
+
             labels: [
                 "Receitas",
-                "Despesas",
-                "Saldo"
+                "Despesas"
             ],
 
             datasets: [{
+
                 label: "Valor (R$)",
 
                 data: [
                     {{ total_receitas }},
-                    {{ total_despesas }},
-                    {{ saldo }}
+                    {{ total_despesas }}
                 ]
+
             }]
+
         },
 
         options: {
+
             responsive: true,
 
+            maintainAspectRatio: false,
+
             plugins: {
+
                 legend: {
                     display: false
                 }
+
             }
+
         }
+
     });
 
 
-    const graficoCategorias = document.getElementById(
-        "graficoCategorias"
-    );
+
+    /* =========================
+       GRÁFICO DESPESAS POR CATEGORIA
+    ========================== */
+
+    const graficoCategorias =
+        document.getElementById("graficoCategorias");
+
 
     new Chart(graficoCategorias, {
+
         type: "doughnut",
 
         data: {
+
             labels: {{ categorias | tojson }},
 
             datasets: [{
+
                 label: "Despesas",
 
                 data: {{ valores_categorias | tojson }}
+
             }]
+
         },
 
         options: {
-            responsive: true
+
+            responsive: true,
+
+            maintainAspectRatio: false
+
         }
+
     });
 
 </script>

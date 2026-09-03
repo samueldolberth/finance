@@ -21,6 +21,7 @@ Aplicação web desenvolvida em **Python com Flask** para auxiliar no controle d
 * MySQL
 * HTML
 * CSS
+* JavaScript
 
 ## Como executar
 

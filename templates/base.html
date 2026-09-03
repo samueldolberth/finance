@@ -3,83 +3,54 @@
 
 <head>
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='estilo.css') }}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
     <title>Controle Financeiro</title>
 </head>
 
-<body>
-
-    <!-- =========================
-         CABEÇALHO FIXO
-    ========================== -->
-
+<body class="tema-{{ tema|default('claro') }}">
+    <!-- fixar barra superior -->
     <header class="topo">
-
         <h1>
             Controle Financeiro
         </h1>
-
     </header>
 
-
-    <!-- =========================
-         NAVBAR LATERAL FIXA
-    ========================== -->
-
+    <!-- nav lateral fixo -->
     <nav class="barra-lateral">
-
         <div id="menu">
-
             <ul>
-
                 <li>
-                    <a href="{{ url_for('dashboard') }}">
-                        Início
-                    </a>
+                    <a href="{{ url_for('dashboard') }}">Início</a>
                 </li>
 
                 <li>
-                    <a href="{{ url_for('receitas') }}">
-                        Receitas
-                    </a>
+                    <a href="{{ url_for('receitas') }}">Receitas</a>
                 </li>
 
                 <li>
-                    <a href="{{ url_for('despesas') }}">
-                        Despesas
-                    </a>
+                    <a href="{{ url_for('despesas') }}">Despesas</a>
                 </li>
 
                 <li>
-                    <a href="{{ url_for('sobre') }}">
-                        Sobre
-                    </a>
+                    <a href="{{ url_for('sobre') }}">Sobre</a>
                 </li>
-
             </ul>
-
         </div>
+        <!-- controle de tema -->
+        <div class="controle-tema">
+            <span>Tema:</span>
 
+            <a href="{{ url_for('alterar_tema', tema='claro') }}">☀️ Claro</a>
+
+            <a href="{{ url_for('alterar_tema', tema='escuro') }}">🌙 Escuro</a>
+        </div>
     </nav>
 
-
-    <!-- =========================
-         CONTEÚDO DAS PÁGINAS
-    ========================== -->
-
     <main class="conteudo">
-
         {% block content %}
-
         {% endblock %}
-
     </main>
-
 </body>
 
 </html>

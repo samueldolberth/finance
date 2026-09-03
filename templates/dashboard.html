@@ -152,7 +152,7 @@
 
             {% else %}
 
-                <p>Nenhuma receita cadastrada.</p>
+            <p>Nenhuma receita cadastrada.</p>
 
             {% endif %}
 
@@ -224,7 +224,7 @@
 
             {% else %}
 
-                <p>Nenhuma despesa cadastrada.</p>
+            <p>Nenhuma despesa cadastrada.</p>
 
             {% endif %}
 
@@ -302,28 +302,28 @@
 
                 data: [
                     {{ total_receitas }},
-                    {{ total_despesas }}
+            {{ total_despesas }}
                 ]
 
-            }]
+    }]
 
         },
 
         options: {
 
-            responsive: true,
+        responsive: true,
 
-            maintainAspectRatio: false,
+        maintainAspectRatio: false,
 
-            plugins: {
+        plugins: {
 
-                legend: {
-                    display: false
-                }
-
+            legend: {
+                display: false
             }
 
         }
+
+    }
 
     });
 
@@ -344,12 +344,12 @@
         data: {
 
             labels: {{ categorias | tojson }},
+            
+        datasets: [{
 
-            datasets: [{
+            label: "Despesas",
 
-                label: "Despesas",
-
-                data: {{ valores_categorias | tojson }}
+            data: {{ valores_categorias | tojson }}
 
             }]
 
@@ -357,11 +357,11 @@
 
         options: {
 
-            responsive: true,
+        responsive: true,
 
-            maintainAspectRatio: false
+        maintainAspectRatio: false
 
-        }
+    }
 
     });
 

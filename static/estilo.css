@@ -1,6 +1,4 @@
-/* =========================
-   CONFIGURAÇÕES GERAIS
-========================= */
+/* CONFIGURAÇÕES GERAIS */
 
 body {
     margin: 0;
@@ -9,38 +7,27 @@ body {
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 header {
     width: 100%;
     height: 70px;
-
     background-color: #444;
     color: white;
-
     display: flex;
     align-items: center;
-
     padding-left: 20px;
-
     box-sizing: border-box;
 }
 
 
-/* =========================
-   MENU LATERAL
-========================= */
+/* MENU LATERAL*/
 
 nav {
     width: 200px;
     height: calc(100vh - 70px);
-
     background-color: #222;
-
     position: fixed;
-
     left: 0;
     top: 70px;
 }
@@ -58,9 +45,7 @@ nav {
 
 #menu a {
     display: block;
-
     padding: 15px 20px;
-
     color: white;
     text-decoration: none;
 }
@@ -70,9 +55,7 @@ nav {
 }
 
 
-/* =========================
-   CONTEÚDO PRINCIPAL
-========================= */
+/* CONTEÚDO PRINCIPAL */
 
 main {
     margin-left: 200px;
@@ -80,9 +63,7 @@ main {
 }
 
 
-/* =========================
-   CABEÇALHO DA PÁGINA
-========================= */
+/* CABEÇALHO DA PÁGINA */
 
 .pagina-cabecalho {
     display: flex;
@@ -102,35 +83,25 @@ main {
 }
 
 
-/* =========================
-   CARDS PRINCIPAIS
-========================= */
+/* CARDS PRINCIPAIS */
 
 .dashboard-cards {
     display: grid;
-
     grid-template-columns: repeat(3, 1fr);
-
     gap: 20px;
-
     margin-bottom: 30px;
 }
 
 .dashboard-card {
     padding: 25px;
-
     border-radius: 10px;
-
     background-color: white;
-
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-
     box-sizing: border-box;
 }
 
 .dashboard-card h2 {
     margin: 15px 0 5px;
-
     font-size: 28px;
 }
 
@@ -160,82 +131,60 @@ main {
 }
 
 
-/* =========================
-   CARDS / MOVIMENTAÇÕES
-========================= */
+/*   CARDS / MOVIMENTAÇÕES*/
 
 .dashboard-movimentacoes {
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 20px;
-
     margin-bottom: 30px;
 }
 
 .card {
     background-color: white;
-
     padding: 20px;
-
     border-radius: 10px;
-
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-
     box-sizing: border-box;
 }
 
 
-/* =========================
-   CABEÇALHO DOS CARDS
-========================= */
+/* CABEÇALHO DOS CARDS */
 
 .card-header {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     margin-bottom: 15px;
 }
 
 .card-header h2 {
     margin: 0;
-
     font-size: 20px;
 }
 
 .card-header a {
     text-decoration: none;
-
     font-weight: bold;
 }
 
 
-/* =========================
-   TABELAS
-========================= */
+/* TABELAS*/
 
 .tabela {
     width: 100%;
-
     border-collapse: collapse;
 }
 
 .tabela th,
 .tabela td {
     padding: 12px;
-
     text-align: left;
-
     border-bottom: 1px solid #eee;
 }
 
 .tabela th {
     font-weight: bold;
-
     color: #555;
 }
 
@@ -244,46 +193,34 @@ main {
 }
 
 
-/* =========================
-   GRÁFICOS
-========================= */
+/* GRÁFICOS*/
 
 .graficos {
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 20px;
-
     margin-bottom: 30px;
 }
 
 .graficos .card {
     min-height: 350px;
-
     display: flex;
-
     flex-direction: column;
 }
 
 .graficos .card h2 {
     margin-top: 0;
-
     margin-bottom: 20px;
-
     font-size: 20px;
 }
 
 .graficos canvas {
     width: 100% !important;
-
     max-height: 300px;
 }
 
 
-/* =========================
-   RESPONSIVIDADE
-========================= */
+/* RESPONSIVIDADE*/
 
 @media (max-width: 900px) {
 
@@ -324,9 +261,7 @@ main {
 
 }
 
-/* =========================
-   CONFIGURAÇÕES GERAIS
-========================= */
+/*  CONFIGURAÇÕES GERAIS */
 
 * {
     box-sizing: border-box;
@@ -334,64 +269,42 @@ main {
 
 body {
     margin: 0;
-
     background-color: #f5f6f8;
-
     font-family: Arial, sans-serif;
 }
 
 
-/* =========================
-   CABEÇALHO FIXO
-========================= */
+/* CABEÇALHO FIXO */
 
 .topo {
     position: fixed;
-
     top: 0;
     left: 0;
-
     width: 100%;
     height: 70px;
-
     background-color: #444;
-
     color: white;
-
     display: flex;
-
     align-items: center;
-
     padding: 0 20px;
-
     z-index: 1000;
 }
 
 .topo h1 {
     margin: 0;
-
     font-size: 24px;
 }
 
-
-/* =========================
-   NAVBAR LATERAL FIXA
-========================= */
+/* NAVBAR LATERAL FIXA */
 
 .barra-lateral {
     position: fixed;
-
     top: 70px;
     left: 0;
-
     width: 200px;
-
     height: calc(100vh - 70px);
-
     background-color: #222;
-
     overflow-y: auto;
-
     z-index: 999;
 }
 
@@ -426,9 +339,7 @@ body {
 }
 
 
-/* =========================
-   CONTEÚDO
-========================= */
+/* CONTEÚDO */
 
 .conteudo {
     margin-left: 200px;
@@ -439,9 +350,7 @@ body {
 }
 
 
-/* =========================
-   RESPONSIVIDADE
-========================= */
+/* RESPONSIVIDADE */
 
 @media (max-width: 600px) {
 
@@ -460,9 +369,7 @@ body {
     }
 }
 
-/* ==================================================
-   TEMA CLARO
-   ================================================== */
+/* TEMA CLARO */
 
 body.tema-claro {
     background-color: #f5f5f5;
@@ -470,9 +377,7 @@ body.tema-claro {
 }
 
 
-/* ==================================================
-   TEMA ESCURO
-   ================================================== */
+/*    TEMA ESCURO */
 
 body.tema-escuro {
     background-color: #181818;
@@ -480,9 +385,7 @@ body.tema-escuro {
 }
 
 
-/* ==================================================
-   CONTEÚDO NO TEMA ESCURO
-   ================================================== */
+/* CONTEÚDO NO TEMA ESCURO */
 
 body.tema-escuro main {
     background-color: #181818;
@@ -505,9 +408,7 @@ body.tema-escuro textarea {
 }
 
 
-/* ==================================================
-   BOTÕES DE TEMA
-   ================================================== */
+/* BOTÕES DE TEMA */
 
 .controle-tema {
     margin-top: 30px;

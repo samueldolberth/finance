@@ -4,9 +4,7 @@
 
 <div class="container">
 
-    <!-- =========================
-         CABEÇALHO
-    ========================== -->
+    <!-- CABEÇALHO -->
 
     <div class="pagina-cabecalho">
         <div>
@@ -15,10 +13,7 @@
         </div>
     </div>
 
-
-    <!-- =========================
-         CARDS PRINCIPAIS
-    ========================== -->
+    <!-- CARDS PRINCIPAIS -->
 
     <div class="dashboard-cards">
 
@@ -40,9 +35,7 @@
             <a href="{{ url_for('receitas') }}">
                 Ver receitas →
             </a>
-
         </div>
-
 
         <!-- DESPESAS -->
         <div class="dashboard-card despesa">
@@ -62,9 +55,7 @@
             <a href="{{ url_for('despesas') }}">
                 Ver despesas →
             </a>
-
         </div>
-
 
         <!-- SALDO -->
         <div class="dashboard-card saldo">
@@ -80,53 +71,36 @@
             <p>
                 Receitas - Despesas
             </p>
-
         </div>
-
     </div>
 
-
-    <!-- =========================
-         ÚLTIMAS MOVIMENTAÇÕES
-    ========================== -->
+    <!-- ÚLTIMAS MOVIMENTAÇÕES -->
 
     <div class="dashboard-movimentacoes">
-
 
         <!-- ÚLTIMAS RECEITAS -->
 
         <div class="card">
 
             <div class="card-header">
-
                 <h2>Últimas receitas</h2>
-
                 <a href="{{ url_for('receitas') }}">
                     Ver todas
                 </a>
-
             </div>
-
 
             {% if ultimas_receitas %}
 
             <table class="tabela">
-
                 <thead>
-
                     <tr>
                         <th>Descrição</th>
                         <th>Valor</th>
                         <th>Data</th>
                     </tr>
-
                 </thead>
-
-
                 <tbody>
-
                     {% for receita in ultimas_receitas %}
-
                     <tr>
 
                         <td>
@@ -140,63 +114,41 @@
                         <td>
                             {{ receita.data.strftime("%d/%m/%Y") }}
                         </td>
-
                     </tr>
-
                     {% endfor %}
-
                 </tbody>
-
             </table>
-
-
             {% else %}
-
-            <p>Nenhuma receita cadastrada.</p>
-
+                <p>Nenhuma receita cadastrada.</p>
             {% endif %}
-
         </div>
 
-
-
         <!-- ÚLTIMAS DESPESAS -->
-
         <div class="card">
 
             <div class="card-header">
 
                 <h2>Últimas despesas</h2>
-
                 <a href="{{ url_for('despesas') }}">
                     Ver todas
                 </a>
-
             </div>
-
 
             {% if ultimas_despesas %}
 
             <table class="tabela">
-
                 <thead>
-
                     <tr>
                         <th>Descrição</th>
                         <th>Categoria</th>
                         <th>Valor</th>
                         <th>Data</th>
                     </tr>
-
                 </thead>
 
-
                 <tbody>
-
                     {% for despesa in ultimas_despesas %}
-
                     <tr>
-
                         <td>
                             {{ despesa.descricao }}
                         </td>
@@ -212,43 +164,25 @@
                         <td>
                             {{ despesa.data.strftime("%d/%m/%Y") }}
                         </td>
-
                     </tr>
-
                     {% endfor %}
-
                 </tbody>
-
             </table>
-
-
             {% else %}
-
-            <p>Nenhuma despesa cadastrada.</p>
-
+                <p>Nenhuma despesa cadastrada.</p>
             {% endif %}
-
         </div>
-
     </div>
 
 
 
-    <!-- =========================
-         GRÁFICOS
-    ========================== -->
-
+    <!-- GRÁFICOS -->
     <div class="graficos">
 
-
         <!-- GRÁFICO FINANCEIRO -->
-
         <div class="card">
-
             <h2>Receitas x Despesas</h2>
-
             <canvas id="graficoFinanceiro"></canvas>
-
         </div>
 
 
